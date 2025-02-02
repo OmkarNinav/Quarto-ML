@@ -1,0 +1,86 @@
+[
+  {
+    "objectID": "ML-Insights.html#introduction",
+    "href": "ML-Insights.html#introduction",
+    "title": "",
+    "section": "Introduction",
+    "text": "Introduction\n\nA New York City-based e-commerce company sells clothing online and offers in-store styling sessions.\nCustomers can:\n\nMeet a personal stylist in-store.\nShop later via a mobile app or website.\n\n\nThe Challenge\nThe company is deciding whether to focus on enhancing their mobile app or website.\nOur Task\nAnalyze customer data to uncover insights and recommend where the company should invest for maximum impact."
+  },
+  {
+    "objectID": "ML-Insights.html#data-overview",
+    "href": "ML-Insights.html#data-overview",
+    "title": "",
+    "section": "Data Overview",
+    "text": "Data Overview\nThe analysis uses data from the company’s Ecommerce Customers CSV file, which includes:\n\ncustomers = pd.read_csv('data/Ecommerce Customers.csv')\ncustomers.head()\n\n\n\n\n\n\n\n\nEmail\nAddress\nAvatar\nAvg. Session Length\nTime on App\nTime on Website\nLength of Membership\nYearly Amount Spent\n\n\n\n\n0\nmstephenson@fernandez.com\n835 Frank Tunnel\\r\\nWrightmouth, MI 82180-9605\nViolet\n34.497268\n12.655651\n39.577668\n4.082621\n587.951054\n\n\n1\nhduke@hotmail.com\n4547 Archer Common\\r\\nDiazchester, CA 06566-8576\nDarkGreen\n31.926272\n11.109461\n37.268959\n2.664034\n392.204933\n\n\n2\npallen@yahoo.com\n24645 Valerie Unions Suite 582\\r\\nCobbborough,...\nBisque\n33.000915\n11.330278\n37.110597\n4.104543\n487.547505\n\n\n3\nriverarebecca@gmail.com\n1414 David Throughway\\r\\nPort Jason, OH 22070-...\nSaddleBrown\n34.305557\n13.717514\n36.721283\n3.120179\n581.852344\n\n\n4\nmstephens@davidson-herman.com\n14023 Rodriguez Passage\\r\\nPort Jacobville, PR...\nMediumAquaMarine\n33.330673\n12.795189\n37.536653\n4.446308\n599.406092"
+  },
+  {
+    "objectID": "ML-Insights.html#section-1",
+    "href": "ML-Insights.html#section-1",
+    "title": "",
+    "section": "",
+    "text": "Customer Information\n\nEmail: Contact information.\nAddress: Location details.\nColor Avatar: Visual representation of the customer.\n\nNumerical Data Columns\n\nAvg. Session Length: Average duration (in minutes) of in-store style advice sessions.\nTime on App: Average time spent on the mobile app (in minutes).\nTime on Website: Average time spent on the website (in minutes).\nLength of Membership: Duration of membership (in years).\nYearly Amount Spent: Total amount spent yearly (in dollars)."
+  },
+  {
+    "objectID": "ML-Insights.html#section-2",
+    "href": "ML-Insights.html#section-2",
+    "title": "",
+    "section": "",
+    "text": "Data Statistics\n\n\n\n\n\n\n\n\n\nAvg. Session Length\nTime on App\nTime on Website\nLength of Membership\nYearly Amount Spent\n\n\n\n\ncount\n500.000000\n500.000000\n500.000000\n500.000000\n500.000000\n\n\nmean\n33.053194\n12.052488\n37.060445\n3.533462\n499.314038\n\n\nstd\n0.992563\n0.994216\n1.010489\n0.999278\n79.314782\n\n\nmin\n29.532429\n8.508152\n33.913847\n0.269901\n256.670582\n\n\n25%\n32.341822\n11.388153\n36.349257\n2.930450\n445.038277\n\n\n50%\n33.082008\n11.983231\n37.069367\n3.533975\n498.887875\n\n\n75%\n33.711985\n12.753850\n37.716432\n4.126502\n549.313828\n\n\nmax\n36.139662\n15.126994\n40.005182\n6.922689\n765.518462\n\n\n\n\n\n\n\nThe Above table shows the statistical summary of the data."
+  },
+  {
+    "objectID": "ML-Insights.html#section-3",
+    "href": "ML-Insights.html#section-3",
+    "title": "",
+    "section": "",
+    "text": "Data Visualization\n\nFig1Fig2Fig3\n\n\n\n\n\n\n\nTime on Website vs Yearly Amount Spent\n\n\n\n\n\n\n\n\n\n\n\nTime on App vs Yearly Amount Spent\n\n\n\n\n\n\n\n\n\n\n\nTime on App vs Length of Membership"
+  },
+  {
+    "objectID": "ML-Insights.html#section-4",
+    "href": "ML-Insights.html#section-4",
+    "title": "",
+    "section": "",
+    "text": "Dataset Pairplot\n\n\n\n\nFrom the pairplot, we can see that the most correlated feature with the yearly amount spent is the length of membership."
+  },
+  {
+    "objectID": "ML-Insights.html#section-5",
+    "href": "ML-Insights.html#section-5",
+    "title": "",
+    "section": "",
+    "text": "LM Plot\n\n\n\n\n\nLength of Membership vs Yearly Amount Spent"
+  },
+  {
+    "objectID": "ML-Insights.html#data-preprocessing",
+    "href": "ML-Insights.html#data-preprocessing",
+    "title": "",
+    "section": "Data Preprocessing",
+    "text": "Data Preprocessing\nNow that we’ve explored the data a bit, let’s go ahead and split the data into training and testing sets.\n\nX = customers[['Avg. Session Length', 'Time on App', 'Time on Website', 'Length of Membership']]\ny = customers['Yearly Amount Spent']\n\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=101)\nX.head(2)\n\n\n\n\n\n\n\n\nAvg. Session Length\nTime on App\nTime on Website\nLength of Membership\n\n\n\n\n0\n34.497268\n12.655651\n39.577668\n4.082621\n\n\n1\n31.926272\n11.109461\n37.268959\n2.664034\n\n\n\n\n\n\n\n\ny.head(2)\n\n0    587.951054\n1    392.204933\nName: Yearly Amount Spent, dtype: float64"
+  },
+  {
+    "objectID": "ML-Insights.html#model-training",
+    "href": "ML-Insights.html#model-training",
+    "title": "",
+    "section": "Model Training",
+    "text": "Model Training\nNow, let’s train our model on our training data.\n\nlm = LinearRegression()\nlm.fit(X_train,y_train)\n\nCoefficients of the model:\n\ncoeff_df = pd.DataFrame(lm.coef_,X.columns,columns=['Coefficient'])\ncoeff_df\n\n\n\n\n\n\n\n\nCoefficient\n\n\n\n\nAvg. Session Length\n25.981550\n\n\nTime on App\n38.590159\n\n\nTime on Website\n0.190405\n\n\nLength of Membership\n61.279097"
+  },
+  {
+    "objectID": "ML-Insights.html#model-evaluation",
+    "href": "ML-Insights.html#model-evaluation",
+    "title": "",
+    "section": "Model Evaluation",
+    "text": "Model Evaluation\nLet’s evaluate the model by predicting off the test values."
+  },
+  {
+    "objectID": "ML-Insights.html#model-evaluation-1",
+    "href": "ML-Insights.html#model-evaluation-1",
+    "title": "",
+    "section": "Model Evaluation",
+    "text": "Model Evaluation\nModel Evaluation Metrics\n\nfrom sklearn import metrics\nprint('MAE:', metrics.mean_absolute_error(y_test, predictions))\nprint('MSE:', metrics.mean_squared_error(y_test, predictions))\nprint('RMSE:', np.sqrt(metrics.mean_squared_error(y_test, predictions)))\n\nMAE: 7.228148653430826\nMSE: 79.81305165097427\nRMSE: 8.933815066978624"
+  },
+  {
+    "objectID": "ML-Insights.html#conclusion",
+    "href": "ML-Insights.html#conclusion",
+    "title": "",
+    "section": "Conclusion",
+    "text": "Conclusion\n\n\n\n\n\n\n\n\n\nCoefficient\n\n\n\n\nAvg. Session Length\n25.981550\n\n\nTime on App\n38.590159\n\n\nTime on Website\n0.190405\n\n\nLength of Membership\n61.279097\n\n\n\n\n\n\n\n\nThe company should focus on the mobile app as it has a higher coefficient compared to the website.\nThe company should also focus on increasing the length of membership as it has the highest coefficient."
+  }
+]
