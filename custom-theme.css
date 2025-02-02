@@ -1,0 +1,155 @@
+/*-- scss:defaults --*/
+/* Define default variables */
+$primary-color: #f4e04d;
+$font-family: 'IBM Plex Sans';
+
+/*-- scss:rules --*/
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
+
+/* Define custom styles */
+
+.dataframe {
+  font-size: 14px; /* Reduce the font size */
+  width: auto; /* Adjust the table width */
+}
+
+.dataframe th, .dataframe td {
+  padding: 4px; /* Reduce padding */
+  text-align: center; /* Center-align text for better readability */
+}
+
+.dataframe th {
+  font-weight: bold; /* Keep headers bold */
+}
+
+.dataframe td {
+  word-wrap: break-word; /* Handle long text gracefully */
+}
+
+
+.quarto-title-block .title {
+    font-size: 2.5em;
+    text-align: center;
+    margin-left: 15cm;
+    margin-top: 3cm;
+    color: $primary-color;
+}
+.quarto-title-block .subtitle {
+    font-size: 2em;
+    font-style: italic;
+    text-align: center;
+}
+
+.first-slide {
+  color:#ffffff;
+  font-family: $font-family;
+}
+.first-slide h2 {
+  color:#ffffff;
+  padding-top: 1.5cm;
+}
+.first-slide h4 {
+  color:#ffffff;
+}
+
+.second-slide {
+  color:#ffffff;
+  font-family: $font-family;
+}
+.second-slide h2 {
+  color:#ffffff;
+  padding-top: 1.5cm;
+}
+.second-slide h4 {
+  color:#ffffff;
+}
+.third-slide {
+  color:#ffffff;
+  font-family: $font-family;
+}
+.third-slide h2 {
+  color:#ffffff;
+  padding-top: 1.5cm;
+}
+.third-slide h3 {
+  color:#ffffff;
+}
+.third-slide h4 {
+  padding-top: 0.6cm;
+  color:#ffffff;
+}
+.fourth-slide {
+  color:#ffffff;
+  font-family: $font-family;
+}
+ .fifth-slide {
+  color:#ffffff;
+  font-family: $font-family;
+}
+.fifth-slide h3 {
+  color:#ffffff;
+  font-family: $font-family;
+  padding-top: 1.5cm;
+}
+.sixth-slide {
+  color:#ffffff;
+  font-family: $font-family;
+}
+.sixth-slide h2 {
+  color:#ffffff;
+  padding-top: 1.5cm;
+}
+.sixth-slide h3 {
+  color:#ffffff;
+}
+
+.seventh-slide {
+  color:#ffffff;
+  font-family: $font-family;
+}
+.seventh-slide h2 {
+  color:#ffffff;
+  padding-top: 1.5cm;
+}
+.seventh-slide h3 {
+  color:#ffffff;
+}
+
+.eighth-slide {
+  color:#ffffff;
+  font-family: $font-family;
+}
+.eighth-slide h2 {
+  color:#ffffff;
+  padding-top: 1.5cm;
+}
+.eighth-slide h3 {
+  color:#ffffff;
+}
+
+.ninth-slide {
+  color:#ffffff;
+  font-family: $font-family;
+}
+.ninth-slide h2 {
+  color:#ffffff;
+  padding-top: 1.5cm;
+}
+.ninth-slide h3 {
+  color:#ffffff;
+}
+.tenth-slide {
+  color:#ffffff;
+  font-family: $font-family;
+}
+.tenth-slide h2 {
+  color:#ffffff;
+  padding-top: 1.5cm;
+}
+
+
+.eleventh-slide {
+  color:#ffffff;
+  font-family: $font-family;
+}
+

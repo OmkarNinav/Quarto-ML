@@ -1,0 +1,209 @@
+---
+project:
+  type: website
+
+format: 
+  revealjs:
+    theme: custom-theme.css
+    slide-number: true
+    transition: fade
+---
+
+```{python}
+
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+pallete = ['#000328','#ffffff','#e0a9a8','#005c8f','#6128f6','#5c659b']
+
+sns.set_style('whitegrid')
+sns.set_palette(pallete)
+```
+
+##  {background-image="images/background.png"}
+
+## Introduction {.first-slide .smaller background-image="images/content.png"}
+
+-   A New York City-based e-commerce company sells clothing online and offers in-store styling sessions.
+-   Customers can:
+    -   Meet a personal stylist in-store.
+    -   Shop later via a mobile app or website.
+
+#### The Challenge
+
+The company is deciding whether to focus on enhancing their mobile app or website.
+
+#### Our Task
+
+Analyze customer data to uncover insights and recommend where the company should invest for maximum impact.
+
+## Data Overview {.second-slide .smaller background-image="images/content.png"}
+
+The analysis uses data from the company's Ecommerce Customers CSV file, which includes:
+
+```{python}
+#| echo: true
+customers = pd.read_csv('data/Ecommerce Customers.csv')
+customers.head()
+```
+
+##  {.smaller .third-slide background-image="images/content.png"}
+
+#### Customer Information
+
+-   Email: Contact information.
+
+-   Address: Location details.
+
+-   Color Avatar: Visual representation of the customer.
+
+#### Numerical Data Columns
+
+-   Avg. Session Length: Average duration (in minutes) of in-store style advice sessions.
+
+-   Time on App: Average time spent on the mobile app (in minutes).
+
+-   Time on Website: Average time spent on the website (in minutes).
+
+-   Length of Membership: Duration of membership (in years).
+
+-   Yearly Amount Spent: Total amount spent yearly (in dollars).
+
+##  {.smaller .third-slide background-image="images/content.png"}
+
+### Data Statistics
+
+```{python}
+customers.describe()
+```
+
+The Above table shows the statistical summary of the data.
+
+## {.smaller .third-slide background-image="images/content.png"}
+
+### Data Visualization
+
+::: {.panel-tabset}
+
+### Fig1
+```{python}
+#| fig-cap: 'Time on Website vs Yearly Amount Spent'
+sns.jointplot(x='Time on Website',y='Yearly Amount Spent',data=customers,height=4)
+```
+
+### Fig2
+```{python}
+#| fig-cap: 'Time on App vs Yearly Amount Spent'
+sns.jointplot(x='Time on App',y='Yearly Amount Spent',data=customers,height=4)
+```
+### Fig3
+```{python}
+#| fig-cap: 'Time on App vs Length of Membership'
+sns.jointplot(x='Time on App',y='Length of Membership',data=customers,kind='hex',height=4)
+```
+:::
+
+## {.fourth-slide .smaller background-image="images/content.png"}
+
+```{python}
+#| fig-cap: 'Dataset Pairplot'
+sns.set_theme(style="whitegrid",font_scale=0.6,font='IBM Plex Sans')
+sns.pairplot(customers,height=1.06,aspect=1.5)
+```
+From the pairplot, we can see that the most correlated feature with the yearly amount spent is the length of membership.
+
+## {.smaller .fifth-slide background-image="images/content.png"}
+
+### LM Plot
+
+```{python}
+#| fig-cap: 'Length of Membership vs Yearly Amount Spent'
+
+sns.lmplot(x='Length of Membership',y='Yearly Amount Spent',data=customers)
+
+```
+
+## Data Preprocessing {.sixth-slide .smaller background-image="images/content.png"}
+
+Now that we've explored the data a bit, let's go ahead and split the data into training and testing sets.
+```{python}
+#| echo: true
+X = customers[['Avg. Session Length', 'Time on App', 'Time on Website', 'Length of Membership']]
+y = customers['Yearly Amount Spent']
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=101)
+X.head(2)
+```
+```{python}
+#| echo: true
+y.head(2)
+```
+
+## Model Training {.seventh-slide .smaller background-image="images/content.png"}
+
+Now, let's train our model on our training data.
+```{python}
+#| echo: true
+#| output: false
+lm = LinearRegression()
+lm.fit(X_train,y_train)
+```
+
+Coefficients of the model:
+```{python}
+
+#| echo: true
+coeff_df = pd.DataFrame(lm.coef_,X.columns,columns=['Coefficient'])
+coeff_df
+
+```
+
+## Model Evaluation {.eighth-slide .smaller background-image="images/content.png"}
+
+Let's evaluate the model by predicting off the test values.
+
+```{python}
+
+predictions = lm.predict(X_test)
+# Scatter plot of actual vs predicted values
+plt.scatter(y_test, predictions, color='blue', alpha=0.6, label="Predictions")
+
+# Plot regression line (y = x)
+min_val = min(y_test.min(), predictions.min())
+max_val = max(y_test.max(), predictions.max())
+plt.plot([min_val, max_val], [min_val, max_val], color='red', linestyle='--', linewidth=2, label="Perfect Fit")
+
+# Labels and title
+plt.xlabel('Y Test (Actual)')
+plt.ylabel('Predicted Y')
+plt.title('Actual vs. Predicted Values')
+plt.legend()
+plt.show()
+```
+
+## Model Evaluation {.ninth-slide .smaller background-image="images/content.png"}
+
+### Model Evaluation Metrics
+
+```{python}
+#| echo: true
+from sklearn import metrics
+print('MAE:', metrics.mean_absolute_error(y_test, predictions))
+print('MSE:', metrics.mean_squared_error(y_test, predictions))
+print('RMSE:', np.sqrt(metrics.mean_squared_error(y_test, predictions)))
+```
+
+## Conclusion {.tenth-slide .smaller background-image="images/content.png"}
+
+```{python}
+
+coeff_df = pd.DataFrame(lm.coef_,X.columns,columns=['Coefficient'])
+coeff_df
+
+```
+
+-   The company should focus on the mobile app as it has a higher coefficient compared to the website.
+-   The company should also focus on increasing the length of membership as it has the highest coefficient.
